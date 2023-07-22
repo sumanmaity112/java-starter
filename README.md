@@ -17,7 +17,7 @@ Getting a new Java and Gradle project off the ground quickly.
 
 ## Features
 
-These include the following:
+The following are included in this repository:
 
 - Provides lint, [OWASP](https://owasp.org/) dependency checking, and [Gradle](https://gradle.org/) setup for Java projects.
 - Contains GitHub action Workflows for writing code and performing security audits
@@ -27,12 +27,13 @@ These include the following:
 
 > [!NOTE]\
 >
-> - You need to create the following [pull request labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) to make sure patch management works properly
->   - dependabot
->   - dependencies
->   - java
->   - github-actions
->   - gradle
+> You need to create the following [pull request labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) to make sure patch management works properly
+>
+> - dependabot
+> - dependencies
+> - java
+> - github-actions
+> - gradle
 
 ## Prerequisites
 
