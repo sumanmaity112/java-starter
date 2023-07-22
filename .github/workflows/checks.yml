@@ -1,0 +1,44 @@
+name: checks
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1-5'
+env:
+  SERVICE_NAME: java-starter
+
+jobs:
+
+  dependency-checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout local repository
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
+      - name: Cache nvd nist data
+        uses: actions/cache@v3
+        id: nvd-nist-cache
+        with:
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/.nvd-nist-cache
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-nvd-nist-cache
+      - name: Dependency Check
+        run: ./gradlew clean dependencyCheckAnalyze --info --stacktrace --no-daemon
+        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
+      - name: Upload dependency check report to artifacts
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-report.html
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/build/reports/dependency-check-report.html

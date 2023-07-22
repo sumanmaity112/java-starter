@@ -1,0 +1,55 @@
+apply plugin: 'jacoco'
+
+def excludes = []
+
+def jacocoExecutionDataFiles = fileTree(buildDir).include("/jacoco/test.exec")
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        html.required = true
+        csv.required = false
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
+
+// TODO: Update 'minimum' requirements rule
+
+    violationRules {
+        executionData.from = files(jacocoExecutionDataFiles)
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 0.45
+            }
+        }
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = 0.45
+            }
+        }
+        rule {
+            limit {
+                counter = 'METHOD'
+                minimum = 0.45
+            }
+        }
+        rule {
+            limit {
+                counter = 'CLASS'
+                minimum = 0.45
+            }
+        }
+    }
+
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: excludes)
+        })
+    }
+}
+
+test.finalizedBy jacocoTestCoverageVerification

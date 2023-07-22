@@ -1,0 +1,22 @@
+apply plugin: "com.github.spotbugs"
+
+spotbugs {
+    ignoreFailures = false
+    showProgress = true
+    effort = 'max'
+    excludeFilter = file("${projectDir}/gradle/config/spotbugsExclude.xml")
+}
+
+spotbugsMain {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+spotbugsTest {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}

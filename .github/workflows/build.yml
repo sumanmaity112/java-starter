@@ -1,0 +1,104 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*.*.*'
+    paths-ignore:
+      - '*.md'
+  pull_request:
+    types: [ opened, reopened ]
+
+env:
+  SERVICE_NAME: java-starter
+
+jobs:
+  verification:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout local repository
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      - name: Run all tests
+        run: ./gradlew clean check --no-daemon
+        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
+      - name: Upload verification reports to artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.SERVICE_NAME }}-build-reports
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/build/reports/
+
+  determine_should_publish_new_version:
+    runs-on: ubuntu-22.04
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    outputs:
+      PUBLISH_NEW_VERSION: ${{ steps.determine_should_publish_new_version.outputs.PUBLISH_NEW_VERSION }}
+    steps:
+      - name: Checkout local repository
+        uses: actions/checkout@v3
+      - name: Determine should publish docker image
+        id: determine_should_publish_new_version
+        run: |
+          PUBLISH_NEW_VERSION=false
+          if [[ $(git tag --points-at HEAD) != '' ]]; then
+            PUBLISH_NEW_VERSION=true
+          fi
+          echo "PUBLISH_NEW_VERSION=${PUBLISH_NEW_VERSION}" >> $GITHUB_OUTPUT
+
+  publish-jar:
+    runs-on: ubuntu-22.04
+    needs: [ determine_should_publish_new_version, verification ]
+    if: ${{ github.actor != 'dependabot[bot]' && needs.determine_should_publish_new_version.outputs.PUBLISH_NEW_VERSION == 'true' }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout local repository
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      - name: Publish jar
+        run: ./gradlew publish --no-daemon
+        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependabot:
+    runs-on: ubuntu-22.04
+    needs: verification
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Enable auto-merge for Dependabot minor and patch update PRs
+        if: ${{steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'}}
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Add label for Major update
+        if: ${{steps.metadata.outputs.update-type == 'version-update:semver-major'}}
+        run: |
+          gh pr edit "$PR_URL" --add-label "major-update"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

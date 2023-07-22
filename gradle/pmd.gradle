@@ -1,0 +1,14 @@
+apply plugin: 'pmd'
+
+pmd {
+    ruleSets = []
+    ruleSetFiles = files("${projectDir}/gradle/config/pmd.xml")
+    consoleOutput = false
+}
+
+tasks.withType(Pmd).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
