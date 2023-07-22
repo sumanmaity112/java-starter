@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/checks.yml
-  checksum: 5999ed74d5a01346f747218158ae14d2e5d968d96b2fb07f63cccd920739e33c
+  checksum: 25afdf066760e02c09cb3952872df2e0dd07aa73cfaf24ca322db99b85be0e8f
 - filename: gradle/config/checkstyle.xml
   checksum: b5e9acea5de5312cb0064ffb83867a46d081f585dbe21ed3e203fa7353e1b93f
 - filename: gradle/mavenPublish.gradle
