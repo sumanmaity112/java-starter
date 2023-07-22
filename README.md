@@ -4,7 +4,7 @@ Getting a new Java and Gradle project off the ground quickly.
 
 ---
 
-# Table of contents
+## Table of contents
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
