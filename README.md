@@ -32,6 +32,7 @@ These include the following:
 >   - dependencies
 >   - java
 >   - github-actions
+>   - gradle
 
 ## Prerequisites
 
