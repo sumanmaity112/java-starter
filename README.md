@@ -23,6 +23,8 @@ The following are included in this repository:
 - Contains GitHub action Workflows for writing code and performing security audits
 - Manages Java patches and GitHub actions via Dependabot
 - Updates the Gradle wrapper using [gradle-update/update-gradle-wrapper-action](https://github.com/gradle-update/update-gradle-wrapper-action)
+  > [!NOTE]\
+  > If you are facing `Error: Github Actions is not permitted to create pull request.`, then please check [GitHub action permission settings](https://github.com/orgs/community/discussions/27689).
 - To implement automatic version management, use conventional commits.
   > [!NOTE]\
   >
