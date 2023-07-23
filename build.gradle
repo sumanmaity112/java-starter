@@ -1,7 +1,7 @@
 plugins {
     id "idea"
     id 'java'
-    id 'java-library'
+    id 'java-library' // TODO: Can be removed if this project is not used for java library
     id "com.github.spotbugs" version "5.0.14" apply false
     id "org.owasp.dependencycheck" version "8.3.1" apply false
     id "com.diffplug.spotless" version "6.20.0" apply false
@@ -23,7 +23,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
 }
 
-group = "com.suman"
+group = "com.suman" // TODO: Update group name
 
 java {
     toolchain {

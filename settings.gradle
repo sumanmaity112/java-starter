@@ -1,3 +1,4 @@
+// TODO: Update project name
 rootProject.name = 'java-starter'
 
 buildscript {
