@@ -1,0 +1,32 @@
+apply plugin: 'info.solidsoft.pitest'
+
+ext {
+    jUnit5PitestVersion = "1.2.0"
+}
+
+dependencies {
+    testImplementation "org.pitest:pitest-junit5-plugin:${jUnit5PitestVersion}"
+}
+
+pitest {
+    testPlugin = 'junit5'
+    threads = 2
+    coverageThreshold = 50 // TODO: Update threshold
+    mutationThreshold = 100 // TODO: Update threshold
+    historyInputLocation = 'pitestHistory/pitestHistory'
+    historyOutputLocation = 'pitestHistory/pitestHistory'
+    useClasspathFile = true     //useful with bigger projects on Windows
+    timestampedReports = false
+    excludedTestClasses = []
+    withHistory = true
+    mutators = ["DEFAULTS"]
+    outputFormats = ['HTML']
+    timeoutFactor = 4.0
+    jvmArgs = ["-Djunit.jupiter.execution.parallel.enabled=false"]
+}
+
+tasks.pitest {
+    dependsOn jacocoTestCoverageVerification
+}
+
+check.dependsOn tasks.pitest

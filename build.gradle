@@ -7,6 +7,7 @@ plugins {
     id "com.diffplug.spotless" version "6.20.0" apply false
     id "io.freefair.lombok" version "8.1.0"
     id 'org.barfuin.gradle.taskinfo' version '2.1.0'
+    id "info.solidsoft.pitest" version "1.9.11" apply false
 }
 
 ext {
@@ -42,4 +43,5 @@ apply from: "${rootDir}/gradle/checkstyle.gradle"
 apply from: "${rootDir}/gradle/pmd.gradle"
 apply from: "${rootDir}/gradle/jacoco.gradle"
 apply from: "${rootDir}/gradle/test.gradle"
+apply from: "${rootDir}/gradle/pitest.gradle"
 apply from: "${rootDir}/gradle/mavenPublish.gradle"
