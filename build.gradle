@@ -6,7 +6,6 @@ plugins {
     id "org.owasp.dependencycheck" version "8.3.1" apply false
     id "com.diffplug.spotless" version "6.20.0" apply false
     id "io.freefair.lombok" version "8.1.0"
-    id 'org.barfuin.gradle.taskinfo' version '2.1.0'
     id "info.solidsoft.pitest" version "1.9.11" apply false
 }
 
