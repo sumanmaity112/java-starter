@@ -27,7 +27,6 @@ The following are included in this repository:
   > If you are facing `Error: Github Actions is not permitted to create pull request.`, then please check [GitHub action permission settings](https://github.com/orgs/community/discussions/27689).
 - To implement automatic version management, use conventional commits.
   > [!NOTE]\
-  >
   > You need to create the following [pull request labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) to make sure patch management works properly
   >
   > - dependabot
