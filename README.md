@@ -11,6 +11,9 @@ Getting a new Java and Gradle project off the ground quickly.
 - [Verifications](#verifications)
 - [Formatting](#formatting)
 - [Security Checks](#security-checks)
+- [License Checks](#license-checks)
+  - [Generate License Report](#generate-license-report)
+  - [Validate Licences](#validate-licences)
 - [Commits](#commits)
   - [Types](#types)
 - [Release new version](#release-new-version)
@@ -20,8 +23,9 @@ Getting a new Java and Gradle project off the ground quickly.
 The following are included in this repository:
 
 - Provides lint, [OWASP](https://owasp.org/) dependency checking, and [Gradle](https://gradle.org/) setup for Java projects.
-- Contains GitHub action Workflows for writing code and performing security audits
-- Manages Java patches and GitHub actions via Dependabot
+- Contains GitHub action Workflows for writing code and performing security audits.
+- Manages Java patches and GitHub actions via Dependabot.
+- Generate and validate licenses reports for dependencies.
 - Updates the Gradle wrapper using [gradle-update/update-gradle-wrapper-action](https://github.com/gradle-update/update-gradle-wrapper-action)
   > [!NOTE]\
   > If you are facing `Error: Github Actions is not permitted to create pull request.`, then please check [GitHub action permission settings](https://github.com/orgs/community/discussions/27689).
@@ -72,6 +76,29 @@ To run OWASP dependency check:
 ./gradlew clean dependencyCheckAnalyze
 ```
 
+## License Checks
+
+This project uses [com.github.jk1.dependency-license-report](https://github.com/jk1/Gradle-License-Report) to validate licenses for dependencies.
+
+### Generate License Report
+
+To generate license report:
+
+```shell
+./gradlew generateLicenseReport
+```
+
+### Validate Licences
+
+To validate licenses for dependencies:
+
+```shell
+./gradlew checkLicense
+```
+
+> [!NOTE]\
+> Allowed licenses are present at [allowedLicence.json](https://github.com/sumanmaity112/java-starter/blob/main/gradle/config/allowedLicence.json).
+
 ## Commits
 
 This repository follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Therefor whenever you
@@ -92,7 +119,8 @@ committing the changes make sure to use proper **type**.
 - **test** for adding missing tests, refactoring tests; no production code change.
 - **build** for updating build configuration, development tools or other changes irrelevant to the user.
 
-> **_NOTE:_** Add ! just after type to indicate breaking changes
+> [!NOTE]\
+> Add **!** just after type to indicate breaking changes
 
 ## Release new version
 
@@ -110,5 +138,6 @@ To publish a new version to GitHub Packages follow the following steps:
 git push origin "$(git describe --tags)"
 ```
 
-> **_NOTE:_** We are following [semantic versioning](https://semver.org/) strategy
+> [!NOTE]\
+> We are following [semantic versioning](https://semver.org/) strategy
 > using [io.alcide:gradle-semantic-build-versioning](https://github.com/alcideio/gradle-semantic-build-versioning) plugin

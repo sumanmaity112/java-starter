@@ -7,6 +7,7 @@ plugins {
     id "com.diffplug.spotless" version "6.20.0" apply false
     id "io.freefair.lombok" version "8.1.0"
     id "info.solidsoft.pitest" version "1.9.11" apply false
+    id "com.github.jk1.dependency-license-report" version "2.5"
 }
 
 ext {
@@ -34,6 +35,16 @@ java {
 tag {
     message fromMandatorySystemProperty('message')
 }
+
+import com.github.jk1.license.render.*
+
+licenseReport {
+    renderers = [new InventoryHtmlReportRenderer()]
+
+    allowedLicensesFile = file("${projectDir}/gradle/config/allowedLicence.json")
+}
+
+check.finalizedBy checkLicense
 
 apply from: "${rootDir}/gradle/spotless.gradle"
 apply from: "${rootDir}/gradle/spotbugs.gradle"

@@ -27,7 +27,10 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: Run all tests
-        run: ./gradlew clean check --no-daemon
+        run: ./gradlew clean check
+        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
+      - name: Validate license for dependencies
+        run: ./gradlew checkLicense
         working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
       - name: Upload verification reports to artifacts
         if: always()
