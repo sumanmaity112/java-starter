@@ -5,7 +5,7 @@ plugins {
     id "com.github.spotbugs" version "5.1.2" apply false
     id "org.owasp.dependencycheck" version "8.3.1" apply false
     id "com.diffplug.spotless" version "6.20.0" apply false
-    id "io.freefair.lombok" version "8.1.0"
+    id "io.freefair.lombok" version "8.2.1"
     id "info.solidsoft.pitest" version "1.9.11" apply false
     id "com.github.jk1.dependency-license-report" version "2.5"
 }
