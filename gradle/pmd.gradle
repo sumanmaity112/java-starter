@@ -8,7 +8,7 @@ pmd {
 
 tasks.withType(Pmd).configureEach {
     reports {
-        xml.required = false
-        html.required = true
+        html.required.set(true)
+        xml.required.set(false)
     }
 }

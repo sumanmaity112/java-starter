@@ -2,13 +2,13 @@ apply plugin: 'jacoco'
 
 def excludes = []
 
-def jacocoExecutionDataFiles = fileTree(buildDir).include("/jacoco/test.exec")
+def jacocoExecutionDataFiles = fileTree(layout.buildDirectory.get()).include("/jacoco/test.exec")
 
 jacocoTestReport {
     reports {
-        xml.required = false
-        html.required = true
-        csv.required = false
+        xml.required.set(false)
+        html.required.set(true)
+        csv.required.set(false)
     }
 }
 

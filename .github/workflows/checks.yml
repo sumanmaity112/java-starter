@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -30,17 +30,18 @@ jobs:
           echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
         shell: bash
       - name: Cache nvd nist data
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: nvd-nist-cache
         with:
           path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/.nvd-nist-cache
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-nvd-nist-cache
+          save-always: true
       - name: Dependency Check
         run: ./gradlew clean dependencyCheckAnalyze --info --stacktrace --no-daemon
         working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
       - name: Upload dependency check report to artifacts
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report.html
           path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/build/reports/dependency-check-report.html

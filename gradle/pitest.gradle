@@ -1,7 +1,7 @@
 apply plugin: 'info.solidsoft.pitest'
 
 ext {
-    jUnit5PitestVersion = "1.2.0"
+    jUnit5PitestVersion = "1.2.1"
 }
 
 dependencies {
@@ -9,7 +9,7 @@ dependencies {
 }
 
 pitest {
-    testPlugin = 'junit5'
+    verbose = true
     threads = 2
     coverageThreshold = 50 // TODO: Update threshold
     mutationThreshold = 100 // TODO: Update threshold

@@ -50,9 +50,9 @@ check.dependsOn integrationTest
 
 // Merge test reports
 tasks.register('mergeTestReports', TestReport) {
-    destinationDirectory = file("$buildDir/reports/tests")
+    destinationDirectory = layout.buildDirectory.dir("reports/tests")
 
-    getTestResults().from(files("$buildDir/test-results/test/binary", "$buildDir/test-results/integrationTest/binary"))
+    getTestResults().from(files(layout.buildDirectory.dir("test-results/test/binary"), layout.buildDirectory.dir("test-results/integrationTest/binary")))
 }
 
 integrationTest.finalizedBy mergeTestReports

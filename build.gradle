@@ -2,12 +2,13 @@ plugins {
     id "idea"
     id 'java'
     id 'java-library' // TODO: Can be removed if this project is not used for java library
-    id "com.github.spotbugs" version "5.2.5" apply false
+    id "com.github.spotbugs" version "6.0.24" apply false
     id "org.owasp.dependencycheck" version "8.4.3" apply false
     id "com.diffplug.spotless" version "6.25.0" apply false
     id "io.freefair.lombok" version "8.10"
     id "info.solidsoft.pitest" version "1.15.0" apply false
     id "com.github.jk1.dependency-license-report" version "2.9"
+    id "com.github.ben-manes.versions" version "0.51.0"
 }
 
 ext {

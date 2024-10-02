@@ -9,7 +9,7 @@ checkstyle {
 tasks.withType(Checkstyle).configureEach {
     group = 'Checkstyle'
     reports {
-        html.required = true
-        xml.required = false
+        html.required.set(true)
+        xml.required.set(false)
     }
 }
