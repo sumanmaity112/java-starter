@@ -13,6 +13,21 @@ updates:
     commit-message:
       prefix: "chore"
     open-pull-requests-limit: 20
+    groups:
+      gradle-version-updates:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      gradle-security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: github-actions
     directory: "/"
@@ -26,3 +41,18 @@ updates:
     commit-message:
       prefix: "chore"
     open-pull-requests-limit: 20
+    groups:
+      github-actions-version-updates:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      github-actions-security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
