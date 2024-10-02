@@ -8,5 +8,5 @@ fileignoreconfig:
 - filename: gradle/test.gradle
   checksum: 164b7ab0b684cd8a2828a89ca60c89efa8af16f48a5fe3a40507db751fec19b0
 - filename: gradle/wrapper/gradle-wrapper.properties
-  checksum: 9134d5d2424a22d530a1ca60f1d0c959af8d42d281b4ac756678ff58ffcf9268
+  checksum: d3cb7910736b454950421593a2c1b9bcf4dfdf56228082cf44f8e042ffcd6ab3
 version: "1.0"
