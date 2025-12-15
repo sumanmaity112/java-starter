@@ -34,7 +34,7 @@ jobs:
         working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
       - name: Upload verification reports to artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.SERVICE_NAME }}-build-reports
           path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/build/reports/
