@@ -30,7 +30,7 @@ jobs:
           echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
         shell: bash
       - name: Cache nvd nist data
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: nvd-nist-cache
         with:
           path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/.nvd-nist-cache
